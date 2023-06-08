@@ -1,7 +1,7 @@
 import onnxruntime
 import numpy as np
 
-session = onnxruntime.InferenceSession('../../model/model.onnx')
+session = onnxruntime.InferenceSession('model/model.onnx')
 
 def get_recommendation(schedule, time, dist, task, duration):
     schedule_list = [int(digit) for digit in schedule]
@@ -12,9 +12,10 @@ def get_recommendation(schedule, time, dist, task, duration):
     inputs = {input_name: input_data}
 
     outputs = session.run(None, inputs)
-    recommendation = np.round(outputs[0][0])
+    recommendation = int(np.round(outputs[0][0][0]))
 
     return recommendation
 
 if __name__ == '__main__':
-    get_recommendation('1'*32, 30, 9, 1, 1.7)
+    rec = get_recommendation('1'*32, 30, 3.5, 1, 1.7)
+    print(rec)
