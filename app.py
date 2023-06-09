@@ -7,6 +7,9 @@ def build_app():
     from routes import recommendation
     app.register_blueprint(recommendation)
 
+    from routes import calendar
+    app.register_blueprint(calendar)
+
     return app
 
 app = build_app()
