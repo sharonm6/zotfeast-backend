@@ -6,7 +6,10 @@ threshold = 0.6
 
 def get_recommendation(schedule, time, dist, task, duration):
     schedule_list = [int(digit) for digit in schedule]
-    user_input = schedule_list + [time, dist, task, duration]
+
+    nEvents = sum(schedule_list[time:min(time+5, len(schedule_list))])
+
+    user_input = [nEvents, dist, task, duration]
 
     input_data = [user_input]
     print(input_data)
@@ -20,6 +23,24 @@ def get_recommendation(schedule, time, dist, task, duration):
 
     return recommendation
 
+
 if __name__ == '__main__':
     rec = get_recommendation('11111000000000000000000001000010', 15, 0.5, 1, .7)
-    print(rec)
+    # print(rec)
+
+    rec = get_recommendation('00000000000000000000000000000000', 15, 0.5, 1, .7)
+    # print(rec)
+
+    rec = get_recommendation('11111111111111111111111111111111', 12, 10, 1, .7)
+    # print(rec)
+
+
+    """
+    Unit Tests
+        - If schedule completely busy, then no
+        - If schedule completely free, then yes
+        - If schedule partially free and duration, then yes
+        - If schedule partially free and no duration, then no
+        - If schedule partially busy and distance is short, then yes
+        - If schedule partially busy and distance is long, then no
+    """
