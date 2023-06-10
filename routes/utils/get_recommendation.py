@@ -12,15 +12,13 @@ def get_recommendation(schedule, time, dist, task, duration):
     user_input = [nEvents, dist, task, duration]
 
     input_data = [user_input]
-    print(input_data)
     input_name = session.get_inputs()[0].name
     inputs = {input_name: input_data}
 
     prediction = session.run(None, inputs)[0][0][0]
     recommendation = 0 if prediction < threshold else 1 
 
-    print(f'{prediction} --> {recommendation}')
-
+    # print(f'{prediction} --> {recommendation}')
     return recommendation
 
 

@@ -6,23 +6,26 @@ recommendation = Blueprint('api/recommendation', __name__, url_prefix='/api/reco
 
 @recommendation.route('/notification', methods=['POST'])
 def notification():
-    schedule = request.args.get('schedule', default=None, type=str)
-    time = request.args.get('time', default=None, type=int)
-    dist = request.args.get('dist', default=None, type=float)
-    task = request.args.get('task', default=None, type=int)
-    duration = request.args.get('duration', default=None, type=float)
+    data = request.get_json()
+    schedule = data.get('schedule', '')
+    time = data.get('time', '')
+    dist = data.get('dist', '')
+    task = data.get('task', '')
+    duration = data.get('duration', '')
+
     if any(x is None for x in [schedule, time, dist, task, duration]):
         return jsonify({'error': 'Missing required parameters'}), 400
+    
     return jsonify({'notification': get_recommendation(schedule, time, dist, task, duration)})
 
 @recommendation.route('/distance', methods=['POST'])
 def distance():
-    latitude = request.args.get('latitude', default=None, type=float)
-    longitude = request.args.get('longitude', default=None, type=float)
-    task = request.args.get('task', default=None, type=float)
+    data = request.get_json()
+    latitude = data.get('latitude', '')
+    longitude = data.get('longitude', '')
+    task = data.get('task', '')
 
     if any(x is None for x in [latitude, longitude, task]):
         return jsonify({'error': 'Missing required parameters'}), 400
     
-    print(calc_distance(latitude, longitude, task))
     return jsonify({'distance': calc_distance(latitude, longitude, task)})
