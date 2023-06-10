@@ -4,7 +4,7 @@ from .utils import calc_distance
 
 recommendation = Blueprint('api/recommendation', __name__, url_prefix='/api/recommendation')
 
-@recommendation.route('/notification', methods=['GET'])
+@recommendation.route('/notification', methods=['POST'])
 def notification():
     schedule = request.args.get('schedule', default=None, type=str)
     time = request.args.get('time', default=None, type=int)
@@ -15,7 +15,7 @@ def notification():
         return jsonify({'error': 'Missing required parameters'}), 400
     return jsonify({'notification': get_recommendation(schedule, time, dist, task, duration)})
 
-@recommendation.route('/distance', methods=['GET'])
+@recommendation.route('/distance', methods=['POST'])
 def distance():
     latitude = request.args.get('latitude', default=None, type=float)
     longitude = request.args.get('longitude', default=None, type=float)
