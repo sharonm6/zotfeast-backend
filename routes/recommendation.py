@@ -16,8 +16,8 @@ def notification():
 
 @recommendation.route('/distance', methods=['GET'])
 def distance():
-    latitude = request.args.get('latitude', default=None, type=str)
-    longitude = request.args.get('longitude', default=None, type=int)
+    latitude = request.args.get('latitude', default=None, type=float)
+    longitude = request.args.get('longitude', default=None, type=float)
     task = request.args.get('task', default=None, type=float)
 
     if any(x is None for x in [latitude, longitude, task]):
