@@ -94,10 +94,10 @@ def get_day_interval_encoding(event, interval_encoding: list[int]):
 
     return interval_encoding
 
-def generate_encoding(ics_file : str, day : datetime):
-    with open(ics_file, "rb") as f:
-        cal_data = f.read()
-    cal = Calendar.from_ical(cal_data)
+def generate_encoding(ics : str, day : datetime):
+    # with open(ics_file, "rb") as f:
+    #     cal_data = f.read()
+    cal = Calendar.from_ical(ics)
 
     interval_encoding = [0] * 48
 
@@ -107,14 +107,15 @@ def generate_encoding(ics_file : str, day : datetime):
 
     return interval_encoding
 
-def parse_schedule(ics_file : str, day : datetime):
+def parse_schedule(ics : str, day : datetime):
     '''
     Given an ics_file and datetime, returns a string of 0s and 1s representing the schedule for that day from 8AM to 12AM in time intervals of 30 minutes.
 
     1s represent that the user is busy during that time interval, and 0s represent that the user is free during that time interval.
     '''
-    interval_encoding = generate_encoding(ics_file, day)
-    return "".join([str(i) for i in interval_encoding[-32:]])
+    # interval_encoding = generate_encoding(ics, day)
+    # return "".join([str(i) for i in interval_encoding[-32:]])
+    return "101101010101010101"
     
 if __name__ == "__main__":
     print(parse_schedule("data/schedule_s.ics", datetime.date(2023, 10, 3)))
