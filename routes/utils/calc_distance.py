@@ -3,7 +3,7 @@ import math
 def _toRadians(degrees):
     return degrees * (math.pi / 180)
 
-def calculateDistance(latitude: float, longitude: float, task: int):  
+def calc_distance(latitude: float, longitude: float, task: int):  
     albertons = [33.65027288359544, -117.83136622883586]
     home = [33.6475, -117.8288]
 

@@ -1,5 +1,6 @@
 from flask import Blueprint, jsonify, request
-from .utils import get_recommendation, calc_distance
+from .utils import get_recommendation
+from .utils import calc_distance
 
 recommendation = Blueprint('api/recommendation', __name__, url_prefix='/api/recommendation')
 
@@ -22,4 +23,6 @@ def distance():
 
     if any(x is None for x in [latitude, longitude, task]):
         return jsonify({'error': 'Missing required parameters'}), 400
+    
+    print(calc_distance(latitude, longitude, task))
     return jsonify({'distance': calc_distance(latitude, longitude, task)})
